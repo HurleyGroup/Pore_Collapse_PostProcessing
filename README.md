@@ -1,5 +1,5 @@
 # Pore_Collapse_PostProcessing
-Post Processing codes to generate results for Part 2 JMPS
+Post Processing codes to generate results for Part 2 JMPS. This repository should be private until the manuscript is published.
 
 Extraction codes files
 
