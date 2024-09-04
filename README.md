@@ -3,7 +3,9 @@ Post Processing codes to generate results for Part 2 JMPS
 
 Extraction codes files
 
-StepA_DataExtraction.py extracts the data from Abaqus ODB files< br / >SG_Deformed_Centroids.py generates data of the deformed centroid of each individual grain < br / >
+StepA_DataExtraction.py extracts the data from Abaqus ODB files <br/>
+SG_Deformed_Centroids.py generates data of the deformed centroid of each individual grain <br/>
+
 Processing_Codes
 
 DT_Generator.m is used to generate the Dealunay Triangulation.
