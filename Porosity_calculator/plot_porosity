@@ -1,0 +1,25 @@
+clc,clear all
+
+load("porosity_real.mat")
+
+plot(porosity(1,:),'k');
+
+hold on 
+
+plot(porosity(9,:),'r');
+
+xlabel('$\Delta$ X Grid Number','interpreter','latex','LineWidth',2)
+ylabel('Porosity $\phi$','interpreter','latex','LineWidth',2)
+
+legend('t=0 $\mu$s', 't=0.613 $\mu$s','interpreter','latex','FontSize',24)
+
+    ax=gca;
+    ax.LineWidth=1;
+    ax.FontSize=24;
+    set(gca, 'TickLabelInterpreter', 'latex');
+
+    hold on
+
+
+exportgraphics(gcf, 'Porosity_crush.png','Resolution',500)
+
