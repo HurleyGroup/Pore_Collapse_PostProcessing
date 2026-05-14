@@ -1,33 +1,17 @@
-clc,clear all; close all;
+clc,clear all,close all
 tic;
 format long
 %Frame=20;
 %res=0.025; %in microns, This is not actual resolution, I am choosing it for compuattaionaly efficency. 
 
  %res=0.0025;% actual resolution
- res=0.0025;% resolution
-connectivity=importdata('/data1/sghosh29/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/connectivity_Job2.txt');
-%nameprefseg = 'image_Al_singlelayer_294979_linear_new_7_Frame_check2_';
-
-
-
-%nameprefseg_rad = 'image_Al_singlelayer_294979_linear_new_11_Frame_check2_rad';
-%mkdir /data2/mohsin/AFOSR/Abaqus/Simulation_Analysis/New/Images image_Al_singlelayer_294979_linear_new_7_Frame_check2
-
-%segmentstackfull = '/data2/mohsin/AFOSR/Abaqus/Simulation_Analysis/New/Images/image_Al_singlelayer_294979_linear_new_7_Frame_check2';
-
-%mkdir /data2/mohsin/AFOSR/Abaqus/Simulation_Analysis/New/Images/image_Al_singlelayer_294979_linear_new_11_Frame_check2 Radiographs
-%segmentstackfull_rad = '/data2/mohsin/AFOSR/Abaqus/Simulation_Analysis/New/Images/image_Al_singlelayer_294979_linear_new_11_Frame_check2/Radiographs';
-
-%for Frame=0%:15
-
-%parfor (Frame=0:15,16)
-%parfor (Frame=0,11,2
+ res=0.025;% resolution
+connectivity=importdata('/home/sghosh29/Desktop/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/connectivity_Job2.txt');
 
 Frame=0;
 
 
-node_coordinates=importdata('/data1/sghosh29/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/nodeCoordinates_Job2_Frame'+string(Frame)+'.txt');
+node_coordinates=importdata('/home/sghosh29/Desktop/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/nodeCoordinates_Job2_Frame'+string(Frame)+'.txt');
 
 
 
@@ -45,6 +29,11 @@ y_upper=max(NY);
 z_lower=min(NZ);
 z_upper=max(NZ);
 
+
+
+
+
+
 nx=ceil((x_upper-x_lower)/res);
 ny=ceil((y_upper-y_lower)/res);
 nz=ceil((z_upper-z_lower)/res);
@@ -52,11 +41,12 @@ nz=ceil((z_upper-z_lower)/res);
 I=zeros(nx,ny,nz);
 
 count=1;
-for Frame=[0:39]%[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]%[2,6,8,10,12]%[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]%[1,3,4,5,7]for Frame=[0]
-Frame
-elementdensity= importdata('/data1/sghosh29/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/elemdensity_Job2_Frame'+string(Frame)+'.txt');
 
-node_coordinates=importdata('/data1/sghosh29/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/nodeCoordinates_Job2_Frame'+string(Frame)+'.txt');
+for Frame=[0:40]%[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]%[2,6,8,10,12]%[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]%[1,3,4,5,7]for Frame=[0]
+Frame
+elementdensity= importdata('/home/sghosh29/Desktop/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/elemdensity_Job2_Frame'+string(Frame)+'.txt');
+
+node_coordinates=importdata('/home/sghosh29/Desktop/SG_abaqus/Validation_Feb2023/Aluminum/_3/Processing_Codes/Data_output/nodeCoordinates_Job2_Frame'+string(Frame)+'.txt');
 [nelements,mm]=size(elementdensity);
 
 
@@ -66,47 +56,7 @@ node_coordinates=importdata('/data1/sghosh29/SG_abaqus/Validation_Feb2023/Alumin
 % NZ=node_coordinates(:,3);
 
 
-% 
-% 
-% x_lower=-0.04;%0.05; %# mm, lower x in mesh for grains =0.450243
-% x_upper=2.60;%3.00; %## mm, upper x in mesh for grains =1.06675
-% 
-% %y_lower=0.1175;
-% y_lower=2.75;
-% y_upper=6.9925;%7.00;
-% 
-% %z_lower=0.075;
-% % z_lower=1.27;
-% % z_upper=5.60;
-% 
-% z_lower=0.20;
-% z_upper=5.17;
-% % 
-
-% x_lower=min(NX);
-% x_upper=max(NX);
-% 
-% y_lower=min(NY);
-% y_upper=max(NY);
-% 
-% z_lower=min(NZ);
-% z_upper=max(NZ);
-
-
-
-% x_lower=0.0955;
-% x_upper=0.6809;
-% 
-% y_lower=0.1510;
-% y_upper=6.6479;
-% 
-% z_lower=0.2460;
-% z_upper=5.0703;
-% 
-% 
-% 
-% 
-% 
+%
 % 
 nx=ceil((x_upper-x_lower)/res);
 ny=ceil((y_upper-y_lower)/res);
@@ -233,32 +183,6 @@ sum_rows = 65536*exp(-0.0000001*sum(I_out, 1));
 sum_rows=reshape(sum_rows,size(sum_rows,2),size(sum_rows,3));
 sum_rows_out=uint16(sum_rows);
 
-%filename = 'output.tif';
-%t = Tiff(['/data2/mohsin/AFOSR/Abaqus/Simulations/New/Single_Layer/Sensitivity_Material/Analysis/Reference_Radiographs','/','Radiograph',num2str(Frame),'.tif'], 'w');
-
-
-
-t = Tiff(['/data1/sghosh29/SG_abaqus/Validation_Feb2023/Aluminum/_3/Synthetic_Radiographs_HighRes/',num2str(Frame),'.tif'], 'w');
-
-%t = Tiff(['/data2/mohsin/AFOSR/Abaqus/Simulations/New/Multilayer/Calibration/Analysis/Reference_Radiographs_Low_res','/','Radiograph_',num2str(Frame),'.tif'], 'w');
-
-
-
-
-%t = Tiff([segmentstackfull,'/',nameprefseg,num2str(Frame),'.tif'], 'w');
-tagstruct.ImageLength = size(sum_rows_out, 1);
-tagstruct.ImageWidth = size(sum_rows_out, 2);
-tagstruct.Photometric = Tiff.Photometric.MinIsBlack;
-tagstruct.BitsPerSample = 16;
-tagstruct.SamplesPerPixel = 1;
-tagstruct.SampleFormat = Tiff.SampleFormat.UInt;
-tagstruct.Compression = Tiff.Compression.None;
-tagstruct.PlanarConfiguration = Tiff.PlanarConfiguration.Chunky;  % Set PlanarConfiguration
-t.setTag(tagstruct);
-t.write(sum_rows_out,sum_rows_out);
-t.close();
-
-
 
 %%%%%%%
 % 
@@ -280,9 +204,19 @@ CFV_data(:,count+1)=compaction;
 
 count=count+1;
 
+%%%%
+
+
+
+
+
+%imwrite(sum_rows,[segmentstackfull,'/Radiograph_',nameprefseg,num2str(Frame),'.tif'])
 elapsedtime=toc;
 end
-% save('CF_Data_L.mat',"CFV_data")
+
+
+save('CF_Data_R.mat',"CFV_data")
+
 
 
 
